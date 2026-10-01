@@ -23,3 +23,16 @@ Extracted from [Who-Visions/NouGenShards](https://github.com/Who-Visions/NouGenS
 python -m nougentalk.persona --text "..." --surface twitch --tz America/New_York --role streamer --json
 python -m nougentalk.persona --text "..." --check output.txt   # lint against the resolved contract
 ```
+
+<!-- nougen:fleet-role:begin (generated from nougen-handoffs fleet/manifest.json; edit the manifest, not this block) -->
+## Fleet role
+
+| | |
+|---|---|
+| Role | persona / audience resolver |
+| Kind | satellite |
+| Status | canonical |
+| Canonical for | persona-resolver |
+| Visibility | public |
+
+<!-- nougen:fleet-role:end -->
