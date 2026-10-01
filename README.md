@@ -24,7 +24,7 @@ python -m nougentalk.persona --text "..." --surface twitch --tz America/New_York
 python -m nougentalk.persona --text "..." --check output.txt   # lint against the resolved contract
 ```
 
-<!-- nougen:fleet-role:begin (generated from nougen-handoffs fleet/manifest.json; edit the manifest, not this block) -->
+<!-- nougen:fleet-role:begin (generated from NouGenRelay fleet/manifest.json; edit the manifest, not this block) -->
 ## Fleet role
 
 | | |
