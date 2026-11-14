@@ -361,6 +361,7 @@ CONTRACT_TEXT: dict[str, str] = {
     "no-id-numbers": "never write ID numbers (A-numbers, SSNs, USCIS receipts); point to the scan instead",
     "first-language-first": "open in the member's first language; other languages come after",
     "one-fact-per-line": "one fact per line; keep every line under the line cap",
+    "full-duplex-him": "conversational timing: concise conversational turns, clear turn yield, and no ungrounded monologues",
 }
 _ID_PATTERNS: tuple[tuple[str, "re.Pattern[str]"], ...] = (
     ("A-number", re.compile(r"\bA[- ]?\d{8,9}\b")),
@@ -406,6 +407,11 @@ def check_output(text: str, persona: "Persona") -> list[str]:
             n = len(_WORD.findall(line))
             if n > cap:
                 v.append(f"one-fact-per-line: line {i} has {n} words (cap {cap})")
+    if "full-duplex-him" in rules:
+        turn_cap = _env_int("NOUGEN_HIM_TURN_MAX_WORDS", 80)
+        total_words = len(_WORD.findall(text))
+        if total_words > turn_cap:
+            v.append(f"full-duplex-him: turn length {total_words} words exceeds conversational yield cap {turn_cap}")
     return v
 
 
