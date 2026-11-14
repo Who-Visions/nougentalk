@@ -206,3 +206,21 @@ def test_one_liners_detect_after_widening():
 def test_first_language_first_ignores_undecidable_opening():
     p = _ht_persona()
     assert P.check_output("# T" + chr(10) + "2024-09-24, West Palm Beach" + chr(10) + "Mwen te marye.", p) == []
+
+
+def test_full_duplex_him_contract_turn_cap(tmp_path: Path):
+    reg = tmp_path / "him_reg.json"
+    reg.write_text('{"markets":[{"key":"m","problem":"p","decides":["x"]}],'
+                   '"audiences":[{"key":"him_voice","market":"m","affinities":[],"channels":[],"values":[],'
+                   '"pains":[],"support":"s","contract":["full-duplex-him"]}]}', encoding="utf-8")
+    sig = P.Signals.from_texts(["hello voice assistant"])
+    p = P.resolve(sig, reg)
+    assert "full-duplex-him" in p.contract
+    # Short conversational turn passes
+    short_reply = "I understand. I am processing the request right now."
+    assert P.check_output(short_reply, p) == []
+    # Monologue exceeding 80 words triggers violation
+    long_monologue = " ".join(["word"] * 85)
+    violations = P.check_output(long_monologue, p)
+    assert len(violations) == 1
+    assert "conversational yield cap" in violations[0]
