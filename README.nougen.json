@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Who-Visions/NouGenShards/main/schemas/readme-manifest.schema.json",
+  "schema_version": 1,
+  "project": {
+    "title": "nougentalk",
+    "description": "Deterministic persona/audience resolver: signals in, an addressing contract out.",
+    "emoji": "💬"
+  },
+  "table_of_contents": true,
+  "badges": [],
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "Deterministic, data-driven persona resolver for the NouGen fleet.\n\nSignals in, an addressing contract out: the same `Signals` produce the same `Persona` and the same fingerprint. No model, no randomness, no clock reads inside `resolve()`.\n\nMarkets and audiences are generic, data-loadable archetypes (`registry.json`, override-able) — never owner-specific values baked into code.\n\nExtracted from [Who-Visions/NouGenShards](https://github.com/Who-Visions/NouGenShards) `src/nougen_shards/persona.py`, 2026-09-16.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Quick Start",
+      "content": "[guess] Install command inferred from pyproject.toml — verify.\n\n```sh\npip install -e .\n```\n\nRequires Python 3.10+.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Usage",
+      "content": "```python\nsig = Signals.from_texts(texts, surfaces=[\"claude-app\"], tz=\"America/New_York\")\np   = resolve(sig)\np.system_prompt()   # style contract for any lane addressing this member\np.fingerprint()     # proof of determinism / cache key\n```\n\n## CLI\n\n```sh\npython -m nougentalk.persona --text \"...\" --surface twitch --tz America/New_York --role streamer --json\npython -m nougentalk.persona --text \"...\" --check output.txt   # lint against the resolved contract\n```",
+      "emoji": "auto"
+    },
+    {
+      "title": "Architecture",
+      "content": "`Signals` → `resolve()` → `Persona`.\n\n- `Persona.system_prompt()` — the style contract for any lane addressing this member.\n- `Persona.fingerprint()` — proof of determinism / cache key.\n\nMarkets and audiences are generic, data-loadable archetypes in `registry.json` (override-able); no owner-specific values are baked into code.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Fleet Role",
+      "content": "Generated from the NouGenRelay fleet manifest — edit the manifest, not this block.\n\n| | |\n|---|---|\n| Role | persona / audience resolver |\n| Kind | satellite |\n| Status | canonical |\n| Canonical for | persona-resolver |\n| Visibility | public |",
+      "emoji": "auto"
+    },
+    {
+      "title": "License",
+      "content": "MIT, per `pyproject.toml`. No `LICENSE` file was found in the repository.",
+      "emoji": "auto"
+    }
+  ],
+  "links": [
+    {
+      "label": "NouGenShards (source of the extraction)",
+      "url": "https://github.com/Who-Visions/NouGenShards"
+    },
+    {
+      "label": "nougentalk on GitHub",
+      "url": "https://github.com/Who-Visions/nougentalk"
+    }
+  ]
+}
